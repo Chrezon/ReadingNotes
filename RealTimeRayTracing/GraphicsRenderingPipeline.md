@@ -133,6 +133,8 @@ Finding which samples/pizels are inside a triangle. A **fragment** is generated 
 
 ### Pixel Processing
 Per-pixel/per-sample computations and operations are performed on pixels or samples that are inside a primitive
+1. **Pixel Shading**
+2. **Merging**
 
 #### Pixel Shading
 Per-pixel shading computations, using interpolated shading data as input
@@ -140,34 +142,30 @@ Per-pixel shading computations, using interpolated shading data as input
 - Executed by programmable GPU cores -> programmer supplies a program (pixel/Fragment shader)
 	- E.g. **Texturing**
 
+#### Merging
+Information per pixel is stored in **colour buffer** -> rectangular array of colours (RGB components)
+- **Merging** combines fragment color (pizel shading) with current buffer-stored colour
+- Called **ROP** or **Raster Operations Pipeline** or **render output unit**
+- GPU not fully programmable here, but configurable
+- Also resolves visibility -> z-buffer (stores z-value of curr closest primitive)
+	- z-buffer has *O(n)* convergence where n = num of primitives
+	- Works when z0value can be computed for all relevant pixels
+	- Primitives can be rendered in any order
+	- No transparent primitives (do after opaque in back-to-front order, or another algo)
+- *alpha channel* stores opacity value for the pixel -> used to be used for discard operation
+	- Now a part of pixel shader program
+- *stencil buffer* -> offscreen buffer to record locations of rendered primitives
+	- 8 bits/pixel
+	- Contents used to control rendering into colour and z-buffer
+	- Pretty literally a stencil -> special effects
+- These functions at end of pipeline are  **raster operations (ROP)** or **blend operations**
+	- e.g. mix colour buffer with pixel -> transparancy
+- **framebuffer** is all buffers on a system
 
+After rasterizer stage, the screen displays primitives visible from POV of camera
+	- **Double Buffering** -> scene rendering is offscreen in **back buffer** and once rendered, swapped with **front buffer** which was displayed on screen
+	- Swapping via **vertical retrace**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Further Reading
+**Trip Down the Graphic Pipeline** -> software renderer from scratch
+**OpenGL Programming Guide (Red Book)**
