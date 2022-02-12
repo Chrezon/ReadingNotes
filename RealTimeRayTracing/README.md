@@ -3,5 +3,5 @@
 2. [The Graphics Processing Unit](TheGraphicsProcessingUnit.md)
 
 ### TODO:
-[ ] Play a little on ShaderToy
-[ ] Play a little with OpenGL
+- [ ] Play a little on ShaderToy
+- [ ] Play a little with OpenGL
