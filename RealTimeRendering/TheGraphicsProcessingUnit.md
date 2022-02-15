@@ -63,3 +63,39 @@ Shader processors can have many roles, and GPU should allocate appropriately -> 
 - **varying inputs:** data that come from triangle's vertices or from rasterization
 - e.g. colour of light source is uniform, the triangle's surface location is varying (per pixel)
 
+The underlying VM has special registers for different types of IO
+- A lot more **constant registers** for uniforms than varying IO
+	- Varying need to be stored separately for each vertex -> limit to # needed
+	- Uniform are stored once and reused across the draw call
+- Also **temporary registers** -> scratch space
+
+Operations common in graphics are efficiently run on modern GPUs, exposed by shading languages
+- **intrinsic functions** optimized for GPU
+
+**Flow control:** branching instructions. Shaders support 2 types
+- **Static flow control:** based on values of uniform inputs -> flow is const over draw call
+	- Allow same shader for variety of situation
+	- No thread divergence
+- **Dynamic flow control:** based on values of varying inputs -> each fragment can execute differently
+	- More powerful but costs performance
+
+## The Vertex Shader
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
