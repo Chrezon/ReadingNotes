@@ -80,8 +80,22 @@ Operations common in graphics are efficiently run on modern GPUs, exposed by sha
 	- More powerful but costs performance
 
 ## The Vertex Shader
+First stage in the functional pipeline -> directly under programmer control
+- Some data manip happens before this stage though.
+- **input assembler (DX)** several steams of data can be woven together to form set of vertices/primitives sent through pipeline
+	- e.g. combining position and colour arrays (so different combinations can be used)
+	- **Instancing:** Object drawin several times with varying data per instance, but with single draw call
 
+Triangle mesh = set of vertices on model surface (position, colour, texture, surface normal)
+- Instead of triangle normal, vertex normals represent orientation of the actual underlying surface (not of the triangle mesh) -> better representation
 
+Vertex shader is first stage to process triangle mesh -> does not know what triangles are formed, only operates on vertices
+- modify, create, ignore values with each vertex
+- Usually, transforms from **model space** to **homogeneous clip space** (minimum)
+- Every vertex is processed, which then outputs that are interpolated across triangle/line
+	- No create/destroy vertices
+	- results cannot be passed to another vertex
+- This independence = parallel processing of vertices on GPU
 
 
 
