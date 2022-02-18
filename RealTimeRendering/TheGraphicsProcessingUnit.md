@@ -97,6 +97,44 @@ Vertex shader is first stage to process triangle mesh -> does not know what tria
 	- results cannot be passed to another vertex
 - This independence = parallel processing of vertices on GPU
 
+## The Tessellation Stage
+For **rendering curved surfaces** -> Take surface description and turn into representative set of triangles
+- Curve description more compact than triangles (less memory)
+	- Prevent CPU to GPU bus bottleneck for things that change shape per frame
+- Surface rendered efficiently -> appropriate # of triangles for given view
+	- Further = less triangles
+- Controlling the **level of detail (LOD)**
+	- Control program performance -> less triangles on weaker GPU for frame rate
+- Triangle mesh flat surfaces can be warped
+- Also can be for reducing expensive shading computations
+
+Three elements:
+1. **Hull Shader (Tessellation Control Shader)**
+	- Input  is a **patch primitive**-> control points defining a subdivision surface/Bezier patch/other curved element
+	- Tells tessellator how many and what configuration triangles to generate
+	- Processes each control point
+	- May modify patch (add/remove control points)
+	- Outputs set of control points and tesselation control data to domain shader
+2. Tessellator (Primitive Generator):**
+	- Fixed function stage, only used with tessellation shaders
+	- Adds several new vertices for domain shader to process
+	- Hull shader informs what type of tessellation surface is wanted:
+		- triangle
+		- quadrilateral
+		- isoline (sets of line stripes)
+	- Hull shader also sends **tessellation factors/levels** -> inner/outer edge
+		- Inner: how much tessellation inside triangle/quad
+		- Outer: how much each exterior edge is split
+			- matching edges avoids cracks + shading artifacts where patches meet
+			- adjacent curved surface matching
+			- 0 or NaN indicates discard
+	- Generates mesh and sends to domain shader
+3. **Domain Shader (Tessellation Evaluation Shader):**
+	- Control points from hull shader used by each invocation to compute output values for each vertex
+	- Input vertex from tesselator and generates a corresponding output vertex
+	- These triangles then passed down pipeline
+
+Generally, just structured this way for efficiency. Each shader can be simple
 
 
 
