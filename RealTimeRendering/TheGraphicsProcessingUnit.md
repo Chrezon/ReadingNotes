@@ -136,7 +136,25 @@ Three elements:
 
 Generally, just structured this way for efficiency. Each shader can be simple
 
+## The Geometry Shader
+Goal is to turn primitives into other primitives (e.g. triangle mesh into wireframe or quads)
+- Usage is optional
+- Input: single object and its associated vertices (triangles in a strip, a line segment, or a point)
+	- Can also define extended primitives
+		- e.g. 3 additional vertices outside a triangle (defining 3 more triangles) or the 2 adjacent vertices to the polyline (segment with 3 parts)
+- Tessellation stage is still more efficient for patch generation
+- Output: 0 or more vertices, treated as points/polylines/strips of triangles
+	- 0 or more means mesh can be selectively modified
+- For modifying incoming data OR making a limited number of copies
+- DX11/OpenGL4.0 introduced ability for geometry shader to use **instancing** -> can run set # of times on primitive
+- Can also output to up to 4 **streams** -> one of which is down the rendering pipeline
+- Guaranteed FIFO (affects performance) -> don't use this to replicate/create large amount of geometry
+- FULLY PROGRAMMABLE (however rarely used since does not map to GPU strengths)
 
+**stream output:** processed vertices can be outputted in a stream (ordered array)on the side
+- Data can be sent back through the pipeline (iterative procession)
+	- useful for flowing water/other particle effects
+- only return in floating point format -> memory cost
 
 
 
