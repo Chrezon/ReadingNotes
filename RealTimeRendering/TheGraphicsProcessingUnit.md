@@ -154,7 +154,31 @@ Goal is to turn primitives into other primitives (e.g. triangle mesh into wirefr
 **stream output:** processed vertices can be outputted in a stream (ordered array)on the side
 - Data can be sent back through the pipeline (iterative procession)
 	- useful for flowing water/other particle effects
-- only return in floating point format -> memory cost
+	- also used to skin a model and have the vertices available for reuse
+- only return in floating point format ->high memory cost
+	- works on **primitives** and not vertices
+	- Vertex sharing between primitives is lost
+	- Usually just send vertices as primitives
+
+## The Pixel Shader
+Primitives are clipped and set up for rasterization , relatively fixed process (somewhat configurable)
+- Traverse each triangle to find which pixels it covers
+	- Can also determine area of pixel covered
+	- A piece of triangle covering pixel is a **fragment**
+- Values at vertices (including z-value) are interpolated across triangle surface for each pixel
+	- Then passed to **pixel shader/fragment shader** which processes the fragment
+
+Type of interpolation performed across triangle is specified by the pixel shader program
+- **perspective-correct interpolation**
+- **screen-space interpolation**: perspective projection not taken into account
+
+Inputs are the vertex shader's outputs + some extras
+- e.g. screen position, visible side of triangle 
+
+Pixel shader typically computes and outputs a fragment's colour (also possibly opacity and modified z-buffer)
+- Values used to modify what's stored at the pixel during merging
+
+
 
 
 
