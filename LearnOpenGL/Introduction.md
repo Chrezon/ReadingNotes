@@ -11,3 +11,36 @@ Generally, we don't need to use latest version of OpenGL, since only the most mo
 OpenGL can be thought of as a **State Machine**, where a collection of variables define how it operates (the **context**)
 
 OpenGL libraries are written in **C** but it supports **objects** -> collection of options that represent a subset of OpenGL's state
+
+# Creating a Window and Hello Window
+Mostly setup content. Happily, my mac still supports OpenGL. My setup and CMake files can be found in the [OpenGLRasterizer](https://github.com/Chrezon/OpenGLRasterizer) repo
+
+# Hello Triangle
+Transforming 3D coordinates to 2D pixels is managed by the graphics pipeline (see reading notes)
+- Transform 3D coordinates to 2D coordinates
+- Transform 2D coordinates to pixels
+
+Some of the shaders in graphics pipeline is customizable -> control over GPU, save CPU cycles
+- Shaders are written in GLSL (OpenGL Shading Language)
+- VERTEX SHADER -> Shape Assembly -> GEOMETRY SHADER -> Rasterization -> FRAGMENT SHADER -> Tests and Blending
+- All caps = modifiable sections (again, see reading notes for what each stage does)
+- (also tessellation and transform feedback loop exists)
+
+OpenGL processes normalized device coordinates [-1.0, 1.0]
+- transformed to screenspace coords via viewport transform -> specify data via glViewport
+
+After defining vertex data, we send it to vertex shader
+- Create memory on GPU to store the data
+- Configure how OpenGL should interpret the memory
+- Specify how to send data to graphics card
+
+Then vertex shader can process this data from its memory. 
+
+Memory is managed via VBO (Vertex Buffer Objects)
+- stores large number of vertices in GPU memory -> can send large batches of data at once (since sending data is slow)
+
+See initialization in OpenGLRasterizer
+
+## Vertex Shader
+We must set up a vertex shader in order to use modern OpenGL. Shaders are written in GLSL (OpenGL Shading Language)
+
