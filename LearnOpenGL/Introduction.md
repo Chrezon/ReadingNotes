@@ -41,6 +41,15 @@ Memory is managed via VBO (Vertex Buffer Objects)
 
 See initialization in OpenGLRasterizer
 
-## Vertex Shader
-We must set up a vertex shader in order to use modern OpenGL. Shaders are written in GLSL (OpenGL Shading Language)
+## Vertex Shader and Fragment Shader
+We must set up a vertex shader and a fragment shader in order to use modern OpenGL. Shaders are written in GLSL (OpenGL Shading Language). To use a shader, OpenGL has to dynamically compile it at runtime from source code
+
+Colours are very important when coding a fragment shader
+- colours in OpenGL are represented by RGBA, where each (float) value is between 0.0 and 1.0
+
+Linking into a **shader program object** is required to use recently compiled shaders
+- then we can activate this shader program when rendering objects
+
+## Linking Vertex Attributes
+Recall that vertex shader allowed us to specify any input we weanted as vertex attributes. We need to specify which parts of input data belongs to which vertex attribute for the vertex shader. 
 
