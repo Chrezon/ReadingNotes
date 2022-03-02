@@ -5,4 +5,3 @@ I am also following the page's implementations. This repo can be found at [OpenG
 
 ## Other Resources:
 - [The Cherno OpenGL Playlist](https://www.youtube.com/watch?v=W3gAzLwfIP0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2)
-

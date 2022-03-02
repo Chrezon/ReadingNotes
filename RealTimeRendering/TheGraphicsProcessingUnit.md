@@ -178,18 +178,14 @@ Inputs are the vertex shader's outputs + some extras
 Pixel shader typically computes and outputs a fragment's colour (also possibly opacity and modified z-buffer)
 - Values used to modify what's stored at the pixel during merging
 
+Pixel shaders can also discard incoming fragments + generate no output
+- clip volumes
 
-
-
-
-
-
-
-
-
-
-
-
-
+**Multiple Render Targets (MRT): we can generate multiple sets of values + save to different buffers (**render targets**)
+- Dependant on GPU could be 4 or 8 available
+- For example, leads to **diferred shading** -> visibility and shading done in separate passes
+	- First pass stores object location and material of each pizel
+	- Successive passes then apply illumination + effects
+- later pass can allow us to access data from neighbouring pixels generated in previous passes
 
 

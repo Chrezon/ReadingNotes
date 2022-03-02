@@ -53,3 +53,7 @@ Linking into a **shader program object** is required to use recently compiled sh
 ## Linking Vertex Attributes
 Recall that vertex shader allowed us to specify any input we weanted as vertex attributes. We need to specify which parts of input data belongs to which vertex attribute for the vertex shader. 
 
+In our example, we know that we have 3 vertices of 3 32-bit floats
+
+## Uniforms:
+Like global variables -> have the same value for all vertices/fragments
